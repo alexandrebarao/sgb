@@ -6,6 +6,7 @@
 package cartoes;
 
 import userinterfaces.CartaoCreditoUI;
+
 /**
  *
  * @author Administrator
@@ -29,4 +30,11 @@ public class CartaoCredito extends CartaoDebito {
         CartaoCreditoUI ui = new CartaoCreditoUI(this);
         ui.menu();
     }
+    
+    public void alterarDados() {
+        CartaoCreditoUI ui = new CartaoCreditoUI(this);
+        ui.alterarDados();
+         
+    }
+    
 }

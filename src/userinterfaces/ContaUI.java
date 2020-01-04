@@ -11,10 +11,15 @@ import contas.Conta;
  *
  * @author Administrator
  */
-public class ContaInvestimentoUI extends ContaUI {
+public class ContaUI {
     
-    public ContaInvestimentoUI(Conta c) {
-        super(c);
+    Conta conta; 
+    
+    public ContaUI(Conta c) {
+        conta = c;
     }
     
+    public void menuMovimentosConta() {
+        // reedfinir nas sub classes e criar o menu específico
+    }
 }

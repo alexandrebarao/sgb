@@ -28,4 +28,13 @@ public class CartaoCreditoUI {
         
     }
 
+    public void alterarDados() {
+        System.out.println("\n\nAlterar plafond do cartão (#" + cartao.getNumero() + ")");
+        
+        System.out.println("\nNovo Plafond? ");
+        Scanner input = new Scanner(System.in);
+        cartao.setPlafond(input.nextDouble());
+        
+    }
+    
 }

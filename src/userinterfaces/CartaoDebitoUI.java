@@ -22,4 +22,8 @@ public class CartaoDebitoUI {
     public void menu() {
         System.out.println("\n\nCartao de Debito Criado com o nr: " + cartao.getNumero());
     }
+    
+    public void alterarDados() {
+        System.out.println("\n\nNão pode alterar dados deste cartão (#" + cartao.getNumero() + ")");
+    }
 }

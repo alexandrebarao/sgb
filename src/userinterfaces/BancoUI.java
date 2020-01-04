@@ -10,6 +10,11 @@ import java.util.Scanner;
 import banco.Banco;
 import clientes.*;
 import cartoes.*;
+import contas.Conta;
+import contas.ContaInvestimento;
+import contas.ContaOrdem;
+import contas.ContaPoupanca;
+import contas.ContaPrazo;
 
 /**
  *
@@ -32,7 +37,7 @@ public class BancoUI {
             System.out.println("1 - Criar um cliente");
             System.out.println("2 - Listar clientes");
             System.out.println("3 - Opções do cliente");
-            System.out.println("4 - Selecionar um cartão");
+            System.out.println("4 - Selecionar um cartão de cliente ativo");
             System.out.println("5 - Avançar um período");
             System.out.println("6 - Sair");
             System.out.println("\nPor favor, selecione uma opção: ");
@@ -56,6 +61,14 @@ public class BancoUI {
                         opcoesDoCliente();
                     }
                     break;
+                    
+                 case 4:
+                    if (meuBanco.getClienteAtivo() != null) {
+                            selecionarUmCartao();
+                    } else {
+                        System.out.println("Cliente ativo não selecionado");
+                    }
+                    break;    
                 case 6:
                     termina = true;
                     break;
@@ -143,6 +156,26 @@ public class BancoUI {
 
     }
 
+    
+    
+     public boolean pedirCartao() {
+        boolean estado = false;
+
+        System.out.println("\n\nIndique qual o numero de cartão?");
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+
+        CartaoDebito cartaoEscolhido = meuBanco.getClienteAtivo().procuraCartao(n);
+
+        if (cartaoEscolhido != null) {
+            meuBanco.getClienteAtivo().setCartaoAtivo(cartaoEscolhido);
+            estado = true;
+        }
+
+        return estado;
+
+    }
+    
     public void editarDadosCliente() {
         if (meuBanco.getClienteAtivo() != null) {
             meuBanco.getClienteAtivo().menu();
@@ -153,7 +186,8 @@ public class BancoUI {
         meuBanco.setClienteAtivo(null);
     }
 
-    public void criarCartaoDebito() {
+    
+      public void criarCartaoDebito() {
         if (meuBanco.getClienteAtivo() != null) {
             CartaoDebito c = new CartaoDebito();
             meuBanco.getClienteAtivo().getListaCartoes().add(c);
@@ -164,6 +198,64 @@ public class BancoUI {
         }
     }
 
+    
+    public void criarContaOrdem() {
+        if (meuBanco.getClienteAtivo() != null) {
+            // validar se este cliente já tem uma conta ordem associada
+            // só pode ter uma..
+            ContaOrdem c = new ContaOrdem();
+            meuBanco.getClienteAtivo().getListaContas().add(c);
+            System.out.println("Conta ordem criada com o número: " + c.getNumero());
+            
+        } else {
+
+            System.out.println("Tem que selecionar o cliente ativo...");
+        }
+    }
+
+    
+    public void criarContaInvestimento() {
+        if (meuBanco.getClienteAtivo() != null) {
+            
+            ContaInvestimento c = new ContaInvestimento();
+            meuBanco.getClienteAtivo().getListaContas().add(c);
+            System.out.println("Conta investimento criada com o número: " + c.getNumero());
+            
+        } else {
+
+            System.out.println("Tem que selecionar o cliente ativo...");
+        }
+    }
+    
+     public void criarContaPoupanca() {
+        if (meuBanco.getClienteAtivo() != null) {
+            
+            ContaPoupanca c = new ContaPoupanca();
+            meuBanco.getClienteAtivo().getListaContas().add(c);
+            System.out.println("Conta poupança criada com o número: " + c.getNumero());
+            
+        } else {
+
+            System.out.println("Tem que selecionar o cliente ativo...");
+        }
+    }
+    
+    
+      public void criarContaPrazo() {
+        if (meuBanco.getClienteAtivo() != null) {
+            
+            ContaPrazo c = new ContaPrazo();
+            meuBanco.getClienteAtivo().getListaContas().add(c);
+            System.out.println("Conta prazo criada com o número: " + c.getNumero());
+            
+        } else {
+
+            System.out.println("Tem que selecionar o cliente ativo...");
+        }
+    }
+    
+    
+    
     public void criarCartaoCredito() {
         if (meuBanco.getClienteAtivo() != null) {
             CartaoCredito c = new CartaoCredito();
@@ -210,6 +302,50 @@ public class BancoUI {
 
     }
 
+     public void criarConta() {
+
+        // escolher tipo de conta 
+        boolean termina = false;
+
+        do {
+            System.out.println("\n\n");
+            System.out.println("Criar conta");
+            System.out.println("1 - Conta Ordem");
+            System.out.println("2 - Conta Investimento");
+            System.out.println("3 - Conta Poupança");
+            System.out.println("4 - Conta Prazo");
+            System.out.println("5 - Voltar para o menu anterior");
+            System.out.println("\nPor favor, selecione uma opção: ");
+
+            Scanner input = new Scanner(System.in);
+            int opcao = input.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    criarContaOrdem();
+                    break;
+                case 2:
+                    criarContaInvestimento();
+                    break;
+                case 3:
+                    criarContaPoupanca();
+                    break;
+                case 4:
+                    criarContaPrazo();
+                    break;                    
+                    
+                case 5:
+                    termina = true;
+                    break;
+                default:
+                    System.out.println("\nOpção incorreta...");
+            }
+
+        } while (!termina);
+
+    }
+    
+    
     public void listarCartoes() {
         if (meuBanco.getClienteAtivo() != null) {
             for (int i = 0; i < meuBanco.getClienteAtivo().getListaCartoes().size(); i++) {
@@ -223,20 +359,45 @@ public class BancoUI {
         }
     }
 
+    public void alterarDadosCartao() {
+        if ( pedirCartao() == true ) {
+            meuBanco.getClienteAtivo().getCartaoAtivo().alterarDados();
+        } else {
+            System.out.println("\n\nNumero de cartão não associado a cliente ativo");
+        }
+    }
+    
+    public void listarContas() {
+        System.out.println("\n\nListar conta do cliente");
+        if ( meuBanco.getClienteAtivo() != null ) {
+                if ( meuBanco.getClienteAtivo().getListaContas().size() > 0  ) {
+                    for (int i = 0; i < meuBanco.getClienteAtivo().getListaContas().size(); i++) {
+                        Conta c = (Conta) meuBanco.getClienteAtivo().getListaContas().get(i);
+                        System.out.print("#" + c.getNumero() + " Saldo= " + c.getSaldo()); 
+                    }
+                } else {
+                    System.out.println("Ainda não há contas associadas a este cliente");
+                }
+        }
+    }
+
+    
     public void opcoesDoCliente() {
         boolean termina = false;
 
         do {
             System.out.println("\n\n");
             System.out.println("Opcoes do cliente");
-            System.out.println("1 - Desativar cliente");
+            System.out.println("1 - Desativar cliente ativo");
             System.out.println("2 - Editar os dados do cliente");
             System.out.println("3 - Criar cartao");
             System.out.println("4 - Listar cartoes");
             System.out.println("5 - Alterar dados do cartao");
             System.out.println("6 - Desativar cartao");
             System.out.println("7 - Criar conta");
-            System.out.println("8 - Voltar para o menu anterior");
+            System.out.println("8 - Listar contas");
+            System.out.println("9 - Escolher conta ativa do cliente ativo");
+            System.out.println("10 - Voltar para o menu anterior");
             System.out.println("\nPor favor, selecione uma opção: ");
 
             Scanner input = new Scanner(System.in);
@@ -255,7 +416,26 @@ public class BancoUI {
                 case 4:
                     listarCartoes();
                     break;
+                case 5:
+                    alterarDadosCartao();
+                    break;
+                    
+                case 6:
+                    desativarCartaoAtivo();
+                    break; 
+                    
+                case 7:
+                    criarConta();
+                    break;  
+                 
                 case 8:
+                    listarContas();
+                    break;      
+                
+                case 9: 
+                    escolherContaAtivaDoClienteAtivo();
+                    break;
+                case 10:
                     termina = true;
                     break;
                 default:
@@ -264,4 +444,94 @@ public class BancoUI {
 
         } while (!termina);
     }
-}
+    
+    
+    // para cliente ativo....
+     public void selecionarUmCartao() {
+        
+        CartaoDebito  cartao;
+        
+        System.out.println("Digite o número de cartão que pretende: ");
+        Scanner input = new Scanner(System.in);
+        int numero = input.nextInt();
+         
+        cartao = meuBanco.getClienteAtivo().procuraCartao(numero);
+        
+        if ( cartao != null ) {
+            meuBanco.getClienteAtivo().setCartaoAtivo(cartao);
+        } else {
+            System.out.println("Numero de cartao sem associação ao cliente ativo");
+        }
+        
+     }
+    
+     public void desativarCartaoAtivo() {
+         
+            if (  meuBanco.getClienteAtivo() != null ) {
+                meuBanco.getClienteAtivo().setCartaoAtivo(null);
+                System.out.println("O cartão ativo foi desativado.");
+            } else {
+                System.out.println("Não existe um cliente ativo...");
+            }
+        
+        
+     }
+     
+     public void escolherContaAtivaDoClienteAtivo() {
+        
+        if ( meuBanco.getClienteAtivo() != null ) {
+         
+                Conta  conta;
+
+                System.out.println("Digite o número da conta pretendida: ");
+                Scanner input = new Scanner(System.in);
+                int numero = input.nextInt();
+
+                conta = meuBanco.getClienteAtivo().procuraConta(numero);
+
+                if ( conta != null ) {
+                    meuBanco.getClienteAtivo().setContaAtiva(conta);
+                } else {
+                    System.out.println("Numero de conta não encontrado para este cliente");
+                }
+
+        
+        }
+     }
+     
+     public void movimentarConta() {
+         if ( meuBanco.getClienteAtivo() != null ) {
+          
+             if ( meuBanco.getClienteAtivo().getContaAtiva() != null ) {
+                 
+                 Conta c = meuBanco.getClienteAtivo().getContaAtiva();
+                 c.menu();
+                 // zxc
+                 
+                 // testar 
+                 
+                 /* 
+                 4 - Selecionar um cartão : só para cliente ativo... define cartão ativo
+6 - Desativar cartao: desativar cartão ativo...
+7 - Criar conta: escolher tipos de conta.. para cliente ativo...
+A seguir a 7 - Criar conta, opção nova: 8 - Listar contas
+Dentro do menu cliente nova opção: 9 - Escolher conta ativa do cliente ativo 
+
+
+
+5 - Avançar um período:  procedimento iterativo global
+
+
+
+
+
+
+
+10 - Movimentar conta
+
+                 
+                 */
+             }
+         }
+     
+}}

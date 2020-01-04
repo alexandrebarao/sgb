@@ -5,6 +5,8 @@
  */
 package clientes;
 
+import cartoes.CartaoDebito;
+import contas.Conta;
 import java.util.ArrayList;
 import userinterfaces.ClienteNormalUI;
 
@@ -20,6 +22,18 @@ public class ClienteNormal {
     private int numero; 
     
     ArrayList listaCartoes;
+    ArrayList listaContas;
+    
+    CartaoDebito cartaoAtivo; // polimorfico... pode ser uisado para CartaoCredito 
+    
+    Conta contaAtiva; // classe abstrata.. polimorfismo
+    
+    public ArrayList getListaContas() {
+        return listaContas;
+    }
+    
+   
+
 
     public ArrayList getListaCartoes() {
         return listaCartoes;
@@ -31,8 +45,59 @@ public class ClienteNormal {
         setNome("Sem nome atribuido"); 
         
         listaCartoes = new ArrayList();
+        listaContas = new ArrayList();
+        
+        cartaoAtivo = null;
+        contaAtiva = null;
     }
 
+    public Conta getContaAtiva() {
+        return contaAtiva;
+    }
+
+    public void setContaAtiva(Conta contaAtiva) {
+        this.contaAtiva = contaAtiva;
+    }
+
+    public CartaoDebito getCartaoAtivo() {
+        return cartaoAtivo;
+    }
+
+    public void setCartaoAtivo(CartaoDebito cartaoAtivo) {
+        this.cartaoAtivo = cartaoAtivo;
+    }
+
+    
+     public CartaoDebito procuraCartao(int n) {
+        CartaoDebito cartao = null;
+        
+        for ( int i = 0; i < listaCartoes.size() ; i++ ) {
+              CartaoDebito c = (CartaoDebito) listaCartoes.get(i);
+              if ( c.getNumero() == n ) {
+                  cartao = c;
+                  break;
+              }
+        }
+        
+        return cartao;
+    }
+    
+     public Conta procuraConta(int n) {
+        Conta conta = null;
+        
+        for ( int i = 0; i < listaContas.size() ; i++ ) {
+              Conta c = (Conta) listaContas.get(i);
+              if ( c.getNumero() == n ) {
+                  conta = c;
+                  break;
+              }
+        }
+        
+        return conta;
+    }
+     
+     
+     
     /**
      * @return the nome
      */

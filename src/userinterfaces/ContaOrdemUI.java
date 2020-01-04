@@ -5,10 +5,16 @@
  */
 package userinterfaces;
 
+import contas.Conta;
+
 /**
  *
  * @author Administrator
  */
-public class ContaOrdemUI {
+public class ContaOrdemUI extends ContaUI {
+    
+    public ContaOrdemUI(Conta c) {
+        super(c);
+    }
     
 }

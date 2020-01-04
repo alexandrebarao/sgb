@@ -5,6 +5,9 @@
  */
 package contas;
 
+import java.util.ArrayList;
+import userinterfaces.ContaUI;
+
 /**
  *
  * @author Administrator
@@ -13,8 +16,13 @@ public abstract class Conta {
     private static int numero = 0;
     private double saldo;
     
+    private ArrayList listaMovimentos;
+    
     public Conta() {
         ++numero;
+        
+        listaMovimentos = new ArrayList();
+        
     }
     
     public boolean transferir(Conta c, double valor) {
@@ -42,5 +50,11 @@ public abstract class Conta {
      */
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+    
+    
+     public void menu() {
+        ContaUI c = new ContaUI(this);
+        c.menuMovimentosConta();
     }
 }
