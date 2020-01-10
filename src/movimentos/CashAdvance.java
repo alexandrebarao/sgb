@@ -10,5 +10,8 @@ package movimentos;
  * @author Administrator
  */
 public class CashAdvance extends Movimento {
-    
+         public String informacao() {
+        return new String("Movimento cashadvance - " + getValor() + " " + getTimeStamp() );
+    }
+
 }

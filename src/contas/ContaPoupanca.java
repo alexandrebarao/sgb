@@ -5,6 +5,10 @@
  */
 package contas;
 
+import userinterfaces.ContaInvestimentoUI;
+import userinterfaces.ContaOrdemUI;
+import userinterfaces.ContaPoupancaUI;
+
 /**
  *
  * @author Administrator
@@ -15,4 +19,10 @@ public class ContaPoupanca extends Conta {
     public ContaPoupanca() {
         juro = 1.05;
     }
+    
+      public void menu() {
+        ContaPoupancaUI c = new ContaPoupancaUI(this);
+        c.menuMovimentosConta();
+    }
+    
 }

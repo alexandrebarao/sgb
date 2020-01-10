@@ -18,6 +18,14 @@ public class ContaUI {
     public ContaUI(Conta c) {
         conta = c;
     }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
     
     public void menuMovimentosConta() {
         // reedfinir nas sub classes e criar o menu específico

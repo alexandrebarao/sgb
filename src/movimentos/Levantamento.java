@@ -10,5 +10,8 @@ package movimentos;
  * @author Administrator
  */
 public class Levantamento extends Movimento{
-    
+    public String informacao() {
+        return new String("Movimento levantamento - " + getValor() + " " + getTimeStamp() );
+    }
+
 }

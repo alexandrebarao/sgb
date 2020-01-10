@@ -13,13 +13,15 @@ import userinterfaces.ContaUI;
  * @author Administrator
  */
 public abstract class Conta {
-    private static int numero = 0;
+    private static int gerador = 0;
+    private  int numero;
     private double saldo;
     
     private ArrayList listaMovimentos;
     
     public Conta() {
-        ++numero;
+        ++gerador;
+        numero = gerador;
         
         listaMovimentos = new ArrayList();
         
@@ -30,6 +32,14 @@ public abstract class Conta {
         setSaldo(getSaldo()-valor);
         return true;
     }
+
+    public ArrayList getListaMovimentos() {
+        return listaMovimentos;
+    }
+
+//    public void setListaMovimentos(ArrayList listaMovimentos) {
+//        this.listaMovimentos = listaMovimentos;
+//    }
 
     /**
      * @return the numero

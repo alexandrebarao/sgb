@@ -11,4 +11,7 @@ package movimentos;
  */
 public class Deposito extends Movimento {
     
+     public String informacao() {
+        return new String("Movimento depósito - " + getValor() + " " + getTimeStamp());
+    }
 }

@@ -5,6 +5,9 @@
  */
 package contas;
 
+import userinterfaces.ContaPoupancaUI;
+import userinterfaces.ContaPrazoUI;
+
 
 
 /**
@@ -14,6 +17,10 @@ package contas;
 public class ContaPrazo extends ContaPoupanca {
    
    private boolean jaTransferiu; 
+
+    public boolean isJaTransferiu() {
+        return jaTransferiu;
+    }
 
    public ContaPrazo() {
        jaTransferiu = false; // overkill...
@@ -30,5 +37,8 @@ public class ContaPrazo extends ContaPoupanca {
         return estado;
     }
 
-     
+      public void menu() {
+        ContaPrazoUI c = new ContaPrazoUI(this);
+        c.menuMovimentosConta();
+    }
 }

@@ -5,6 +5,8 @@
  */
 package contas;
 
+import userinterfaces.ContaOrdemUI;
+
 /**
  *
  * @author Administrator
@@ -24,4 +26,10 @@ public class ContaOrdem extends Conta {
         }
         return conseguiuLevantar;
     }
+    
+     public void menu() {
+        ContaOrdemUI c = new ContaOrdemUI(this);
+        c.menuMovimentosConta();
+    }
+    
 }

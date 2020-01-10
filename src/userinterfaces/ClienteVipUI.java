@@ -5,6 +5,7 @@
  */
 package userinterfaces;
 
+import banco.Gestor;
 import clientes.ClienteVip;
 import java.util.Scanner;
 /**
@@ -29,7 +30,14 @@ public class ClienteVipUI  {
         clienteVip.setNome(input.nextLine());
         
         // Identificar gestor de conta
-        // dar acesso ao sistema de gerir gestores...
         
+        Gestor g = new Gestor();
+        
+        System.out.println("\nNome do gestor? ");
+        input = new Scanner(System.in);
+        g.setNome(input.nextLine());
+        
+        // ideal era dar acesso ao sistema de gerir gestores em vez de criar...
+        clienteVip.setGestor(g);
     }
 }

@@ -5,6 +5,9 @@
  */
 package contas;
 
+import userinterfaces.ContaInvestimentoUI;
+import userinterfaces.ContaOrdemUI;
+
 /**
  *
  * @author Administrator
@@ -29,5 +32,19 @@ public class ContaInvestimento extends ContaOrdem {
         this.custo = custo;
     }
     
-    
+     public boolean levantar(double valor) {
+        boolean conseguiuLevantar = false;
+        
+        if ( getSaldo() >= valor ) {
+             setSaldo(getSaldo()-valor);
+             setSaldo(getSaldo()-getCusto());
+             conseguiuLevantar = true;
+        }
+        return conseguiuLevantar;
+    }
+     
+       public void menu() {
+        ContaInvestimentoUI c = new ContaInvestimentoUI(this);
+        c.menuMovimentosConta();
+    }
 }

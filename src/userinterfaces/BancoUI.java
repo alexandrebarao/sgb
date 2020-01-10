@@ -198,15 +198,32 @@ public class BancoUI {
         }
     }
 
+    public boolean temContaOrdem() {
+        boolean tem = false;
+        
+        for ( int i = 0; i < meuBanco.getClienteAtivo().getListaContas().size();i++) {
+            Conta c = (Conta)  meuBanco.getClienteAtivo().getListaContas().get(i);
+            if ( c instanceof ContaOrdem ) {
+                tem = true;
+            }
+        }
+        
+        return tem;
+    }
     
     public void criarContaOrdem() {
         if (meuBanco.getClienteAtivo() != null) {
             // validar se este cliente já tem uma conta ordem associada
             // só pode ter uma..
-            ContaOrdem c = new ContaOrdem();
-            meuBanco.getClienteAtivo().getListaContas().add(c);
-            System.out.println("Conta ordem criada com o número: " + c.getNumero());
-            
+            if ( temContaOrdem() == false ) {
+                    ContaOrdem c = new ContaOrdem();
+                    meuBanco.getClienteAtivo().getListaContas().add(c);
+                    System.out.println("Conta ordem criada com o número: " + c.getNumero());
+                    // por omissão, nova conta fica ativa
+                    meuBanco.getClienteAtivo().setContaAtiva(c);
+            } else {
+                System.out.println("Já tem uma conta ordem associada...");
+            }
         } else {
 
             System.out.println("Tem que selecionar o cliente ativo...");
@@ -220,7 +237,9 @@ public class BancoUI {
             ContaInvestimento c = new ContaInvestimento();
             meuBanco.getClienteAtivo().getListaContas().add(c);
             System.out.println("Conta investimento criada com o número: " + c.getNumero());
-            
+            // por omissão, nova conta fica ativa
+            meuBanco.getClienteAtivo().setContaAtiva(c);
+
         } else {
 
             System.out.println("Tem que selecionar o cliente ativo...");
@@ -233,7 +252,9 @@ public class BancoUI {
             ContaPoupanca c = new ContaPoupanca();
             meuBanco.getClienteAtivo().getListaContas().add(c);
             System.out.println("Conta poupança criada com o número: " + c.getNumero());
-            
+            // por omissão, nova conta fica ativa
+            meuBanco.getClienteAtivo().setContaAtiva(c);
+
         } else {
 
             System.out.println("Tem que selecionar o cliente ativo...");
@@ -247,7 +268,9 @@ public class BancoUI {
             ContaPrazo c = new ContaPrazo();
             meuBanco.getClienteAtivo().getListaContas().add(c);
             System.out.println("Conta prazo criada com o número: " + c.getNumero());
-            
+            // por omissão, nova conta fica ativa
+            meuBanco.getClienteAtivo().setContaAtiva(c);
+
         } else {
 
             System.out.println("Tem que selecionar o cliente ativo...");
@@ -373,7 +396,7 @@ public class BancoUI {
                 if ( meuBanco.getClienteAtivo().getListaContas().size() > 0  ) {
                     for (int i = 0; i < meuBanco.getClienteAtivo().getListaContas().size(); i++) {
                         Conta c = (Conta) meuBanco.getClienteAtivo().getListaContas().get(i);
-                        System.out.print("#" + c.getNumero() + " Saldo= " + c.getSaldo()); 
+                        System.out.println("#" + c.getNumero() + " Saldo= " + c.getSaldo()); 
                     }
                 } else {
                     System.out.println("Ainda não há contas associadas a este cliente");
@@ -381,6 +404,23 @@ public class BancoUI {
         }
     }
 
+    public void movimentarContaAtiva() {
+        if ( meuBanco.getClienteAtivo() != null ) {
+            
+            if ( meuBanco.getClienteAtivo().getContaAtiva() != null) {
+                
+                // ok, cliente e conta ativa 
+                meuBanco.getClienteAtivo().getContaAtiva().menu();
+                
+            } else {
+                System.out.println("Não escolheu uma conta ativa");
+            }
+            
+        } else {
+            System.out.println("Não tem cliente selecionado");
+        }
+    }
+    
     
     public void opcoesDoCliente() {
         boolean termina = false;
@@ -397,7 +437,8 @@ public class BancoUI {
             System.out.println("7 - Criar conta");
             System.out.println("8 - Listar contas");
             System.out.println("9 - Escolher conta ativa do cliente ativo");
-            System.out.println("10 - Voltar para o menu anterior");
+            System.out.println("10 - Movimentar conta ativa");
+            System.out.println("11 - Voltar para o menu anterior");
             System.out.println("\nPor favor, selecione uma opção: ");
 
             Scanner input = new Scanner(System.in);
@@ -436,6 +477,10 @@ public class BancoUI {
                     escolherContaAtivaDoClienteAtivo();
                     break;
                 case 10:
+                    movimentarContaAtiva();
+                    break;
+                    
+                case 11:
                     termina = true;
                     break;
                 default:
@@ -506,31 +551,6 @@ public class BancoUI {
                  
                  Conta c = meuBanco.getClienteAtivo().getContaAtiva();
                  c.menu();
-                 // zxc
-                 
-                 // testar 
-                 
-                 /* 
-                 4 - Selecionar um cartão : só para cliente ativo... define cartão ativo
-6 - Desativar cartao: desativar cartão ativo...
-7 - Criar conta: escolher tipos de conta.. para cliente ativo...
-A seguir a 7 - Criar conta, opção nova: 8 - Listar contas
-Dentro do menu cliente nova opção: 9 - Escolher conta ativa do cliente ativo 
-
-
-
-5 - Avançar um período:  procedimento iterativo global
-
-
-
-
-
-
-
-10 - Movimentar conta
-
-                 
-                 */
              }
          }
      
