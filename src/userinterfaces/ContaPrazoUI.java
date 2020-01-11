@@ -5,6 +5,7 @@
  */
 package userinterfaces;
 
+import banco.Banco;
 import contas.Conta;
 import contas.ContaInvestimento;
 import contas.ContaOrdem;
@@ -18,8 +19,8 @@ import movimentos.Movimento;
  */
 public class ContaPrazoUI extends ContaUI{
     
-    public ContaPrazoUI(Conta c) {
-        super(c);
+    public ContaPrazoUI(Conta c, Banco b) {
+        super(c, b);
     }
     
      

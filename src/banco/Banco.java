@@ -6,6 +6,7 @@
 package banco;
 
 import clientes.ClienteNormal;
+import contas.Conta;
 import java.util.ArrayList; 
 
 import userinterfaces.BancoUI;
@@ -47,6 +48,27 @@ public class Banco {
         }
         
         return cliente;
+    }
+    
+    public Conta procuraConta(int n) { // polimorfismo
+        Conta conta = null;
+        ClienteNormal cliente = null;
+        
+        for ( int i = 0; i < listaClientes.size() ; i++ ) {
+              ClienteNormal c = (ClienteNormal) listaClientes.get(i);
+              
+              for ( int j = 0; j < c.getListaContas().size() ; j++ ) {
+                  Conta cc = (Conta) c.getListaContas().get(j);
+                  
+                  if ( cc.getNumero() == n) {
+                      conta = cc;
+                      break;
+                  }
+              }
+              
+        }
+        
+        return conta;
     }
     
     public ClienteNormal getClienteAtivo() {

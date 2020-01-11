@@ -5,6 +5,7 @@
  */
 package contas;
 
+import banco.Banco;
 import userinterfaces.ContaInvestimentoUI;
 import userinterfaces.ContaOrdemUI;
 
@@ -43,8 +44,8 @@ public class ContaInvestimento extends ContaOrdem {
         return conseguiuLevantar;
     }
      
-       public void menu() {
-        ContaInvestimentoUI c = new ContaInvestimentoUI(this);
+       public void menu(Banco b) {
+        ContaInvestimentoUI c = new ContaInvestimentoUI(this, b);
         c.menuMovimentosConta();
     }
 }

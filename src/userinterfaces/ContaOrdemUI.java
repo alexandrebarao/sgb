@@ -5,6 +5,7 @@
  */
 package userinterfaces;
 
+import banco.Banco;
 import contas.Conta;
 import contas.ContaOrdem;
 import java.sql.Timestamp;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 import movimentos.Deposito;
 import movimentos.Levantamento;
 import movimentos.Movimento;
+import movimentos.Transferencia;
 
 /**
  *
@@ -19,8 +21,8 @@ import movimentos.Movimento;
  */
 public class ContaOrdemUI extends ContaUI {
     
-    public ContaOrdemUI(Conta c) {
-        super(c);
+    public ContaOrdemUI(Conta c, Banco b) {
+        super(c, b);
     }
     
     
@@ -60,6 +62,42 @@ public class ContaOrdemUI extends ContaUI {
     
     public void efetuarTransferencia() {
         
+        // pedir conta destibo
+        System.out.println("Digite o número da conta destino");
+        Scanner input = new Scanner(System.in);
+        int destino = input.nextInt();
+        
+       
+        // pedir valor
+        System.out.println("Digite o valor para transferir: ");
+        input = new Scanner(System.in);
+        double v = input.nextDouble();
+        // transferir
+        Conta co = (Conta) getConta();
+        
+        Conta cDestino ; // polimorfico pode ser qq tipo de conta
+        // método e informar...
+        // zxc
+        
+        boolean podeTransferir = false; 
+        
+        cDestino = getBanco().procuraConta(destino);
+        if ( cDestino != null ) {
+            podeTransferir = true;
+        }
+        
+        if ( podeTransferir == true ) {
+        
+                co.transferir(cDestino, v);
+                // criar movimento
+                Transferencia t = new Transferencia();
+                t.setValor(v);
+                t.setTimeStamp(new Timestamp(System.currentTimeMillis()));
+               // t.setDadosContaDestino(cDestino.getNumero());
+                t.setDadosContaDestino(" TRF OK ");
+                // juntar o movimento ao extracto
+                co.getListaMovimentos().add(t);
+        }
     }
     
     public void consultarSaldo() {

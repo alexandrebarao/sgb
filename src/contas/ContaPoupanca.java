@@ -5,6 +5,7 @@
  */
 package contas;
 
+import banco.Banco;
 import userinterfaces.ContaInvestimentoUI;
 import userinterfaces.ContaOrdemUI;
 import userinterfaces.ContaPoupancaUI;
@@ -20,8 +21,8 @@ public class ContaPoupanca extends Conta {
         juro = 1.05;
     }
     
-      public void menu() {
-        ContaPoupancaUI c = new ContaPoupancaUI(this);
+      public void menu(Banco b) {
+        ContaPoupancaUI c = new ContaPoupancaUI(this, b);
         c.menuMovimentosConta();
     }
     

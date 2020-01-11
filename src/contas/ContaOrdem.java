@@ -5,6 +5,7 @@
  */
 package contas;
 
+import banco.Banco;
 import userinterfaces.ContaOrdemUI;
 
 /**
@@ -27,8 +28,8 @@ public class ContaOrdem extends Conta {
         return conseguiuLevantar;
     }
     
-     public void menu() {
-        ContaOrdemUI c = new ContaOrdemUI(this);
+     public void menu(Banco b) {
+        ContaOrdemUI c = new ContaOrdemUI(this, b);
         c.menuMovimentosConta();
     }
     

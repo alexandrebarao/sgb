@@ -36,7 +36,7 @@ public class BancoUI {
             System.out.println("Menu do Banco");
             System.out.println("1 - Criar um cliente");
             System.out.println("2 - Listar clientes");
-            System.out.println("3 - Opções do cliente");
+            System.out.println("3 - Selecionar cliente  (Opções do cliente)");
             System.out.println("4 - Selecionar um cartão de cliente ativo");
             System.out.println("5 - Avançar um período");
             System.out.println("6 - Sair");
@@ -54,7 +54,7 @@ public class BancoUI {
                     break;
                 case 3:
                     if (meuBanco.getClienteAtivo() == null) {
-                        if (pedirCliente()) {
+                        if (pedirCliente()==true) {
                             opcoesDoCliente();
                         }
                     } else {
@@ -410,7 +410,7 @@ public class BancoUI {
             if ( meuBanco.getClienteAtivo().getContaAtiva() != null) {
                 
                 // ok, cliente e conta ativa 
-                meuBanco.getClienteAtivo().getContaAtiva().menu();
+                meuBanco.getClienteAtivo().getContaAtiva().menu(meuBanco);
                 
             } else {
                 System.out.println("Não escolheu uma conta ativa");
@@ -426,8 +426,16 @@ public class BancoUI {
         boolean termina = false;
 
         do {
+            
+            ClienteNormal cAtiv = meuBanco.getClienteAtivo();
+            String mensagem = "Opções do cliente ";
+            if ( cAtiv != null ) {
+                mensagem+=" ativo ";
+                mensagem+=cAtiv.getNome();
+            }
+            
             System.out.println("\n\n");
-            System.out.println("Opcoes do cliente");
+            System.out.println(mensagem);
             System.out.println("1 - Desativar cliente ativo");
             System.out.println("2 - Editar os dados do cliente");
             System.out.println("3 - Criar cartao");
@@ -550,7 +558,7 @@ public class BancoUI {
              if ( meuBanco.getClienteAtivo().getContaAtiva() != null ) {
                  
                  Conta c = meuBanco.getClienteAtivo().getContaAtiva();
-                 c.menu();
+                 c.menu(meuBanco);
              }
          }
      

@@ -5,6 +5,7 @@
  */
 package contas;
 
+import banco.Banco;
 import userinterfaces.ContaPoupancaUI;
 import userinterfaces.ContaPrazoUI;
 
@@ -37,8 +38,8 @@ public class ContaPrazo extends ContaPoupanca {
         return estado;
     }
 
-      public void menu() {
-        ContaPrazoUI c = new ContaPrazoUI(this);
+      public void menu(Banco b) {
+        ContaPrazoUI c = new ContaPrazoUI(this, b);
         c.menuMovimentosConta();
     }
 }

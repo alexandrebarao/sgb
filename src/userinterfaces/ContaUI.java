@@ -5,6 +5,7 @@
  */
 package userinterfaces;
 
+import banco.Banco;
 import contas.Conta;
 
 /**
@@ -14,13 +15,19 @@ import contas.Conta;
 public class ContaUI {
     
     Conta conta; 
+    Banco banco;
     
-    public ContaUI(Conta c) {
+    public ContaUI(Conta c, Banco b) {
         conta = c;
+        banco = b;
     }
 
     public Conta getConta() {
         return conta;
+    }
+
+    public Banco getBanco() {
+        return banco;
     }
 
     public void setConta(Conta conta) {

@@ -5,6 +5,7 @@
  */
 package contas;
 
+import banco.Banco;
 import java.util.ArrayList;
 import userinterfaces.ContaUI;
 
@@ -63,8 +64,8 @@ public abstract class Conta {
     }
     
     
-     public void menu() {
-        ContaUI c = new ContaUI(this);
+     public void menu(Banco b) {
+        ContaUI c = new ContaUI(this, b);
         c.menuMovimentosConta();
     }
 }
